@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Listings</title>
+    {% load static %}
+</head>
+<body>
+    <h2>Create Listing</h2>
+
+    <input id="title" placeholder="Title"> <br><br>
+    <textarea name="" id="description" placeholder="Description"></textarea> <br><br>
+    <input id="location" placeholder="Location"><br><br>
+    <input type="number" id="price" placeholder="Price per night"> <br><br>
+
+    <button id="create-Btn">Create</button>
+
+    <script src="{% static 'js/create_listings.js'%}"></script>
+</body>
+</html>

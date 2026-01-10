@@ -1,0 +1,53 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ======================
+# Virtual Environment
+# ======================
+venv/
+env/
+.venv/
+
+# ======================
+# Django
+# ======================
+*.log
+local_settings.py
+db.sqlite3
+media/
+
+# ======================
+# Environment Variables
+# ======================
+.env
+
+# ======================
+# Migrations (OPTIONAL)
+# ======================
+# If this is a learning project, keep migrations
+# If team project, DO NOT ignore migrations
+# users/migrations/
+# */migrations/
+
+# ======================
+# Static files
+# ======================
+staticfiles/
+
+# ======================
+# IDE / Editor
+# ======================
+.vscode/
+.idea/
+*.swp
+
+# ======================
+# OS files
+# ======================
+.DS_Store
+Thumbs.db

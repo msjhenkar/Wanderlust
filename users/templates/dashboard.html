@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wanderlust Dashboard</title>
+    {% load static %}
+</head>
+<body>
+    
+    <h1>Welcome to Wanderlust Dashboard 🌍</h1>
+
+    <p id = "user-info">Loading...</p>  
+    
+    <div class="role-section host-section" style="display: none;">
+        <h2>Host panel</h2>
+        <button onclick="window.location.href='/create-listing/'">Create Listings</button>
+    </div>
+
+    <div class="role-section user-section" style="display: none;">
+        <h2>User panel</h2>
+        <button>Browse stays</button>
+    </div>
+
+    <div class="role-section admin-section" style="display: none;">
+        <h2>Admin panel</h2>
+        <button>Approve Hosts</button>
+    </div>
+
+    <button id="logout-btn">Logout</button>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+    
+</script>
+</body>
+</html>
