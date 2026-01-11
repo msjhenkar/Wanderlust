@@ -30,6 +30,9 @@ def dashboard(request):
 def create_Listing_page(request):
     return render(request, "listings.html")
 
+def my_listing_page(request):
+    return render(request, "my_listings.html")
+
 class RegisterView(APIView):
     def post(self, request):
         email = request.data.get("email")

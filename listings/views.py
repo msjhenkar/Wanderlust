@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from users.permissions import IsApprovedHost
 from rest_framework import status
-
 from .serializers import ListingSerializer
+from .models import Listing
 
 # Create your views here.
 class CreateListingView(APIView):
@@ -25,4 +25,12 @@ class CreateListingView(APIView):
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
-        ) 
+        )
+    
+class MyListingView(APIView):
+    permission_classes = [IsAuthenticated,IsApprovedHost]
+
+    def get(self, request):
+        listings = Listing.objects.filter(host = request.user)
+        serializer = ListingSerializer(listings, many = True)
+        return Response(serializer.data)
