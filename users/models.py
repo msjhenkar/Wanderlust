@@ -10,6 +10,8 @@ class UserManager(BaseUserManager):
             raise ValueError("The Email field must be set")
         
         email = self.normalize_email(email)
+
+
         extra_fields.setdefault('role', 'USER')
 
         user = self.model(email=email, **extra_fields)
@@ -34,14 +36,18 @@ class User(AbstractBaseUser,PermissionsMixin):
     )
 
     email = models.EmailField(unique=True)
-    # full_name = models.CharField(max_length=100)
+
+    full_name = models.CharField(max_length=100)
+
+    phone_number = models.CharField(max_length=10)
     
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default="USER")
 
     is_host_approved = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
 
+    is_staff = models.BooleanField(default=False)
+
+    is_active = models.BooleanField(default=True)
 
     date_joined = models.DateTimeField(default=timezone.now)
 
@@ -49,7 +55,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     
     USERNAME_FIELD ="email"
     
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['full_name','phone_number']
 
     def __str__(self):
         return self.email
