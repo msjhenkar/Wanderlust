@@ -17,6 +17,8 @@ from .serializers import RegisterSerializer
 
 User = get_user_model()
 
+def index(request):
+    return render(request, "index.html")
 
 # Create your views here.
 @csrf_exempt
@@ -60,21 +62,31 @@ class RegisterView(APIView):
             "refresh": str(refresh),
             
         })
+    
 
+
+# LoginView API
 class LoginView(APIView):
     def post(self, request):
         # print("API LOGIN VIEW HIT ")
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
-    
+
+
+
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        user = request.user
         return Response({
-            "email": request.user.email,
-            "role": request.user.role
+            "user_id": user.id,
+            "email": user.email,
+            "full_name": user.full_name,
+            "phone_number": user.phone_number,
+            "role": user.role,
+            "is_host_approved": user.is_host_approved,
         })
     
 
