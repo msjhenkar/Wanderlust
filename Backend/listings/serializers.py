@@ -10,6 +10,8 @@ class ListingSerializer(serializers.ModelSerializer):
             'description',
             'price_per_night',
             'location',
+            'image',
+            'rating',
             'is_available',
             'created_at'
         ]

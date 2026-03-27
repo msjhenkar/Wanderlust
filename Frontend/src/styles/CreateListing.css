@@ -1,0 +1,221 @@
+/* ── Create Listing Standalone Page ──────────────────────────────────────── */
+
+.create-listing-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+  padding: 40px 20px 60px;
+  font-family: var(--font-family);
+}
+
+.create-listing-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  color: #667eea;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-bottom: 24px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #4f46e5;
+  text-decoration: underline;
+}
+
+.create-listing-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.create-listing-header h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.create-listing-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* Two-column body */
+.create-listing-body {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Image panel */
+.image-upload-panel {
+  position: sticky;
+  top: 100px;
+}
+
+.image-drop-zone {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border: 2.5px dashed #c7d2fe;
+  border-radius: 20px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.image-drop-zone:hover {
+  border-color: #667eea;
+  background: #f5f3ff;
+}
+
+.image-drop-zone.has-preview {
+  border-style: solid;
+  border-color: #667eea;
+}
+
+.image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #94a3b8;
+  text-align: center;
+  padding: 20px;
+}
+
+.image-placeholder span {
+  font-size: 3rem;
+}
+
+.image-placeholder p {
+  font-weight: 600;
+  color: #475569;
+}
+
+.image-placeholder small {
+  font-size: 0.8rem;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.remove-image-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1.5px solid #fecaca;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  font-family: var(--font-family);
+  transition: background 0.2s;
+}
+
+.remove-image-btn:hover {
+  background: #fee2e2;
+}
+
+/* Form panel */
+.create-listing-form-full {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.create-listing-form-full .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.create-listing-form-full .form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.02em;
+}
+
+.create-listing-form-full .form-group input,
+.create-listing-form-full .form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: var(--font-family);
+  color: #1e293b;
+  background: #f8fafc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  resize: vertical;
+}
+
+.create-listing-form-full .form-group input:focus,
+.create-listing-form-full .form-group textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+  background: #fff;
+}
+
+.create-submit-btn {
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  font-family: var(--font-family);
+}
+
+.create-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+.create-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .create-listing-body {
+    grid-template-columns: 1fr;
+  }
+  .image-upload-panel {
+    position: static;
+  }
+  .create-listing-form-full {
+    padding: 24px;
+  }
+}

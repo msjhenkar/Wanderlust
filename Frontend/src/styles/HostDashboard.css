@@ -1,0 +1,246 @@
+/* ── Host Dashboard specific styles ──────────────────────────────────────── */
+
+.host-pending-banner {
+  margin: 24px 36px 0;
+  background: linear-gradient(135deg, #fef3c7, #fffbeb);
+  border: 1.5px solid #fcd34d;
+  border-left: 5px solid #f59e0b;
+  border-radius: 14px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.host-pending-banner span {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.host-pending-banner strong {
+  display: block;
+  color: #92400e;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.host-pending-banner p {
+  color: #78350f;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Approved / Pending inline badges */
+.approved-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pending-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Section heading */
+.section-heading {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.section-heading-row .section-heading {
+  margin-bottom: 0;
+}
+
+.btn-primary-sm {
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary-sm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Inline create form (inside HostDashboard) */
+.host-create-inline {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.host-blocked-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px;
+  color: #64748b;
+  text-align: center;
+}
+
+.host-blocked-msg span { font-size: 3rem; }
+.host-blocked-msg p { font-size: 1rem; max-width: 300px; }
+
+.create-listing-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.create-listing-form .form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.create-listing-form .form-group input,
+.create-listing-form .form-group textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: var(--font-family);
+  color: #1e293b;
+  background: #f8fafc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  resize: vertical;
+}
+
+.create-listing-form .form-group input:focus,
+.create-listing-form .form-group textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+  background: #fff;
+}
+
+.file-input {
+  padding: 8px;
+  font-size: 0.85rem !important;
+}
+
+/* Host listings grid */
+.host-listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.host-listing-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.host-listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.host-listing-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.host-listing-body {
+  padding: 18px;
+}
+
+.host-listing-body h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.host-listing-location {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.host-listing-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.listing-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.listing-badge--green { background: #dcfce7; color: #16a34a; }
+.listing-badge--red { background: #fef2f2; color: #dc2626; }
+
+/* Empty state */
+.empty-listings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: #64748b;
+  text-align: center;
+}
+
+.empty-listings span { font-size: 3.5rem; }
+.empty-listings p { font-size: 1rem; }
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .host-pending-banner { margin: 16px; }
+  .host-create-inline { padding: 20px; }
+}

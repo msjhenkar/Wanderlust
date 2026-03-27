@@ -31,7 +31,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'role']
+        fields = ['email', 'password', 'role','full_name', 'phone_number']
 
     def validate_role(self, value):
         if value == 'ADMIN':
@@ -54,3 +54,18 @@ class RegisterSerializer(serializers.ModelSerializer):
 
             
         return user
+
+
+# class  RegisterSerializer(serializers.ModelSerialzer):
+#     password = serializers.CharField(write_only=True)
+
+#     class Meta:
+#         model = User
+#         fields = ['email','password','full_name']
+
+#     def validate_email(self, value):
+#         if User.objects.filter(email =value).exists():
+#             raise serializers.ValidationError("emial already exists")
+#         return value
+#     def create(self, validated_data):
+#         return User.objects.create_user(**validated_data)

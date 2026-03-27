@@ -1,0 +1,131 @@
+# 🗺️ WanderLust Project Audit
+
+This is a complete functional and structural audit of the **WanderLust** full-stack travel platform.
+
+## 1. Backend Implementation Status (Django / DRF)
+
+### 🗄️ Models & Fields
+**[User](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/models.py#29-56) (Custom AbstractBaseUser)**
+- `email`: EmailField (unique)
+- [role](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/serializers.py#36-40): CharField (Choices: USER, HOST, ADMIN, default: USER)
+- `is_host_approved`: BooleanField (default: False)
+- `is_staff`: BooleanField (default: False)
+- `is_active`: BooleanField (default: True)
+- `date_joined`: DateTimeField
+
+**[Listing](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/listings/models.py#6-33)**
+- `host`: ForeignKey -> User (related_name: 'listings')
+- `title`: CharField (max 200)
+- `description`: TextField
+- `price_per_night`: DecimalField (10, 2)
+- `location`: CharField (max 255)
+- `image`: URLField (max 500, blank=True, null=True)
+- `rating`: DecimalField (3, 2, default: 0.00)
+- `is_available`: BooleanField (default: True)
+- `created_at`, `updated_at`: DateTimeFields
+
+### 🔄 Serializers
+- **[LoginSerializer](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/serializers.py#6-27)**: Handles email/password authentication & returns JWT tokens (`access`, `refresh`).
+- **[RegisterSerializer](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/serializers.py#29-57)**: Validates registration, handles password hashing, sets [role](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/serializers.py#36-40). Approvals are flagged `False` automatically for HOST roles.
+- **[ListingSerializer](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/listings/serializers.py#4-19)**: Serializes all Listing fields; sets [id](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/serializers.py#10-27) and `created_at` as read-only.
+
+### 🌐 API Endpoints & Routes Configured
+**Users Routing (`api/users/` and root):**
+- `/login/`, `/dashboard/`, `/create-listing/`, `/my-listings/` (Django Template Views)
+- `/register/`, `/api-register/` (Register API)
+- `/api-login/` (Login API)
+- `/profile/` (Token Profile Info)
+- `/token/refresh/` (JWT Refresh)
+- `/admin/pending-hosts/` (Admin Host Applications)
+- `/admin/approve-host/<int:user_id>/` (Admin Approve Host)
+
+**Listings Routing (`api/listings/`):**
+- `/create/` (POST - Create listing as approved Host)
+- `/my/` (GET - Fetch listings belonging to logged-in user)
+- `/featured/` (GET - Paginated, top-rated listings)
+
+### 🧱 Views Created
+- **APIView**: [RegisterView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#36-63), [LoginView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#67-73), [ProfileView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#76-84), [UserProfileView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#86-91), [PendingHostrequestView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#92-115), [HostDashboardView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#116-121), [ApproveHostView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#122-145), [AdminDashboardView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#147-152), [CreateListingView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/listings/views.py#13-31), [MyListingView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/listings/views.py#32-39)
+- **Generics**: [FeaturedListingsView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/listings/views.py#45-58) (ListAPIView)
+- **Django Template Views (Basic)**: [login_page](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#22-26), [dashboard](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#27-29), [create_Listing_page](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#30-32), [my_listing_page](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/views.py#33-35)
+
+### 📄 Pagination & Optimizations
+- **Pagination**: Implemented [FeaturedListingPagination](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/listings/views.py#40-44) (PageNumberPagination, default 6 items, max 20).
+- **Optimization**: `select_related('host')` is used in [FeaturedListingsView](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/listings/views.py#45-58) to prevent N+1 queries when fetching top-rated listings.
+
+---
+
+## 2. Frontend Implementation Status
+> [!WARNING]
+> A React + Tailwind frontend structure has **NOT** been detected in the project yet. Currently, there are only basic Django HTML templates ([login.html](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/templates/login.html), [dashboard.html](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/templates/dashboard.html), [listings.html](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/templates/listings.html), [my_listings.html](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/users/templates/my_listings.html)) serving as placeholders.
+- **Pages created:** None (in React).
+- **Components:** None (in React).
+- **Axios Integration:** None.
+- **UI Sections:** None.
+
+---
+
+## 3. Features Currently Working (Backend API)
+- ✅ **Dynamic API fetching & JSON outputs**: The DRF setup properly outputs JSON for authentication and listings.
+- ✅ **Featured Listings**: The `/api/listings/featured/` endpoint functional with sorting by rating (`-rating`).
+- ✅ **Pagination**: Featured endpoint delivers paginated results (6 per page).
+- ✅ **JWT Authentication Framework**: Access & refresh logic built into login functionality.
+- ✅ **Role-Based Access Control**: Admins can approve Hosts. Only Approved Hosts can create listings.
+
+---
+
+## 4. Folder Structure Overview
+**Backend (`wanderlust/`)**
+- `/core/`: Core Django settings ([settings.py](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/core/settings.py), core [urls.py](file:///c:/Users/Jhenkar/OneDrive/Desktop/Jhenkar/Project/wanderlust/core/urls.py))
+- `/users/`: Custom user handling, JWT serializers, Auth models, and Django HTML templates.
+- `/listings/`: Models, serializers, & views dedicated to properties.
+- `manage.py`, `requirement.txt`, `db.sqlite3`
+
+**Frontend**
+- *Currently missing.*
+
+---
+
+## 5. Database State
+- **Database Engine**: SQLite (`db.sqlite3` is present in root).
+- **Migrated Fields**: Both `User` and `Listing` schemas are actively present and likely migrated.
+- **Relationships**: `Listing` correctly inherits a `ForeignKey` relationship to the `User` model, acting as the Host.
+
+---
+
+## 6. What Is NOT Yet Implemented
+
+- **React Frontend Setup**: Create project using Vite or Next.js, implement Tailwind configuration, build components.
+- **Search & Filters Functionality**: Missing search endpoint/queries by location, price, dates.
+- **Booking / Reservation System**: No `Booking` model exists yet to lock dates/availability. 
+- **Payments Integration**: No models/endpoints for Stripe/Razorpay.
+- **Image Uploads**: `Listing.image` is a simple `URLField`. Cloudinary/AWS S3 for actual image upload functionality is not built.
+- **Full Admin Controls**: Basic host approval exists, but comprehensive application management is lacking.
+
+---
+
+## 7. Overall Project Level
+- **Current Status**: **Beginner/Intermediate (Backend-focused)** 
+- **To make it Portfolio-Ready**: 
+  1. Initialize the React/Tailwind frontend and connect it via Axios to the existing endpoints.
+  2. Implement a complete Booking architecture (handling dates/overlapping checks).
+  3. Replace `URLField` image endpoints with real Multipart FormData uploads (S3 or Cloudinary).
+  4. Build dynamic Search & Filtering backend support using `django-filter` or custom querysets.
+
+---
+
+## 8. Clear Summary
+
+**☑️ Completed Features**
+- Custom User Model (Admin, Host, User Roles)
+- JWT Authentication (Login, Register, Refresh)
+- Admin controls to review and approve Host applications
+- Listing creation bounded by Approved Host permissions
+- Featured Listings fetching with Pagination and `select_related` DB optimization
+
+**⏳ Pending Features**
+- **The Entire React/Tailwind Frontend**
+- Robust Search & Filtering capabilities
+- Booking and Reservation data structures
+- Image file uploading functionality
+- Payment gateway integrations

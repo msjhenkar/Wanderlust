@@ -19,6 +19,9 @@ class Listing(models.Model):
     )
 
     location= models.CharField(max_length=255)
+    
+    image = models.URLField(max_length=500, blank=True, null=True)
+    rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
 
     is_available = models.BooleanField(default=True)
 
