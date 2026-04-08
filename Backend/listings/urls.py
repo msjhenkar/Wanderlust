@@ -7,3 +7,4 @@ urlpatterns = [
     path('my/', MyListingView.as_view()),
     path('featured/', FeaturedListingsView.as_view(), name='featured-listings'),
 ]
+  
