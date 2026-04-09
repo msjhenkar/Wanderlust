@@ -24,3 +24,4 @@ urlpatterns = [
     path('api/listings/', include('listings.urls')),
     path('', include('users.urls')),
 ]
+   
